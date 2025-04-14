@@ -138,15 +138,16 @@ export function Sidebar({ className, onNewFolderCreated }: SidebarProps) {
               
               return (
                 <li key={item.name}>
-                  <Link href={item.path}>
-                    <a className={`flex items-center gap-3 px-3 py-2 rounded-lg ${
+                  <Link 
+                    href={item.path}
+                    className={`flex items-center gap-3 px-3 py-2 rounded-lg ${
                       isActive 
                         ? 'text-primary bg-blue-50' 
                         : 'hover:bg-neutral-50 text-neutral-700'
-                    }`}>
-                      {item.icon}
-                      <span>{item.name}</span>
-                    </a>
+                    }`}
+                  >
+                    {item.icon}
+                    <span>{item.name}</span>
                   </Link>
                 </li>
               );
