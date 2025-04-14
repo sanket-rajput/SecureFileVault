@@ -22,9 +22,6 @@ const loginSchema = z.object({
 const registerSchema = insertUserSchema.extend({
   password: z.string().min(8, 'Password must be at least 8 characters'),
   confirmPassword: z.string(),
-  terms: z.boolean().refine(val => val === true, {
-    message: 'You must agree to the terms',
-  }),
 }).refine(data => data.password === data.confirmPassword, {
   message: 'Passwords do not match',
   path: ['confirmPassword'],
@@ -53,7 +50,6 @@ export default function AuthPage() {
       password: '',
       confirmPassword: '',
       fullName: '',
-      terms: false,
     },
   });
   
@@ -65,7 +61,7 @@ export default function AuthPage() {
   };
   
   const onRegisterSubmit = (data: RegisterFormValues) => {
-    const { confirmPassword, terms, ...userData } = data;
+    const { confirmPassword, ...userData } = data;
     registerMutation.mutate(userData);
   };
   
@@ -223,26 +219,7 @@ export default function AuthPage() {
                   )}
                 </div>
                 
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="terms"
-                    {...registerForm.register('terms')}
-                  />
-                  <label
-                    htmlFor="terms"
-                    className="text-sm text-neutral-700"
-                  >
-                    I agree to the{' '}
-                    <a href="#" className="text-primary hover:underline">Terms</a>{' '}
-                    and{' '}
-                    <a href="#" className="text-primary hover:underline">Privacy Policy</a>
-                  </label>
-                </div>
-                {registerForm.formState.errors.terms && (
-                  <p className="text-sm text-red-500">
-                    {registerForm.formState.errors.terms.message}
-                  </p>
-                )}
+
                 
                 <Button 
                   type="submit" 
