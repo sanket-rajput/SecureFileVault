@@ -38,7 +38,11 @@ export function Sidebar({ className, onNewFolderCreated }: SidebarProps) {
   const [isCreateFolderOpen, setIsCreateFolderOpen] = useState(false);
   
   // Get storage information
-  const { data: storageInfo } = useQuery({
+  const { data: storageInfo } = useQuery<{
+    used: number;
+    limit: number;
+    remaining: number;
+  }>({
     queryKey: ['/api/users/storage'],
     enabled: !!user,
   });

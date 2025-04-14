@@ -163,10 +163,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const { originalname, path: filePath, size, mimetype } = req.file;
       const fileType = originalname.split('.').pop() || '';
-      const folderId = req.body.folderId ? Number(req.body.folderId) : null;
-
-      // If folderId provided, verify folder exists and belongs to user
-      if (folderId) {
+      // Get folderId from request body or use null for root folder
+      let folderId = null;
+      
+      // If folderId is provided in the request (not empty string or undefined)
+      if (req.body.folderId && req.body.folderId !== '') {
+        folderId = Number(req.body.folderId);
+        
+        // Check if the folder exists and belongs to the user
         const folder = await storage.getFolderById(folderId);
         if (!folder || folder.userId !== req.user!.id) {
           return res.status(400).json({ message: "Invalid folder" });
