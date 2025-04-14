@@ -27,7 +27,7 @@ export interface IStorage {
   searchFiles(userId: number, query: string): Promise<File[]>;
   
   // Session store
-  sessionStore: session.SessionStore;
+  sessionStore: session.Store;
 }
 
 export class MemStorage implements IStorage {
@@ -37,7 +37,7 @@ export class MemStorage implements IStorage {
   private userIdCounter: number;
   private fileIdCounter: number;
   private folderIdCounter: number;
-  sessionStore: session.SessionStore;
+  sessionStore: session.Store;
 
   constructor() {
     this.users = new Map();
@@ -197,4 +197,8 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+// Import the DatabaseStorage
+import { DatabaseStorage } from "./databaseStorage";
+
+// Use DatabaseStorage instead of MemStorage
+export const storage = new DatabaseStorage();
