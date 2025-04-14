@@ -68,6 +68,7 @@ export class MemStorage implements IStorage {
     const user: User = { 
       ...insertUser, 
       id, 
+      fullName: insertUser.fullName || null,
       storageUsed: 0, 
       storageLimit: 10485760, // 10MB in bytes
       createdAt: now
@@ -98,6 +99,7 @@ export class MemStorage implements IStorage {
     const newFolder: Folder = {
       ...folder,
       id,
+      parentId: folder.parentId || null,
       createdAt: now,
       updatedAt: now
     };
@@ -145,6 +147,8 @@ export class MemStorage implements IStorage {
     const newFile: File = {
       ...file,
       id,
+      folderId: file.folderId || null,
+      isPublic: file.isPublic || false,
       createdAt: now,
       updatedAt: now
     };

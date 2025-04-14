@@ -70,11 +70,9 @@ export function Header({ onMobileMenuToggle, onSearch }: HeaderProps) {
           <Menu className="h-5 w-5" />
         </Button>
         
-        <Link href="/">
-          <a className="flex items-center gap-2 text-xl font-semibold">
-            <Cloud className="text-primary h-6 w-6" />
-            <span className="hidden sm:inline">CloudStore</span>
-          </a>
+        <Link href="/" className="flex items-center gap-2 text-xl font-semibold">
+          <Cloud className="text-primary h-6 w-6" />
+          <span className="hidden sm:inline">CloudStore</span>
         </Link>
         
         <form 
@@ -124,12 +122,14 @@ export function Header({ onMobileMenuToggle, onSearch }: HeaderProps) {
           <DropdownMenuTrigger asChild>
             <Button 
               variant="ghost" 
-              className="ml-2 h-9 w-9 rounded-full bg-primary text-white flex items-center justify-center" 
+              className="ml-2 p-0 h-9 w-9 rounded-full overflow-hidden" 
               title="Account"
             >
-              <AvatarFallback className="font-medium text-sm">
-                {getInitials()}
-              </AvatarFallback>
+              <Avatar className="h-full w-full">
+                <AvatarFallback className="bg-primary text-white font-medium text-sm">
+                  {getInitials()}
+                </AvatarFallback>
+              </Avatar>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
